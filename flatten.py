@@ -5,7 +5,7 @@ from scipy.ndimage.interpolation import shift
 
 def find_polynomial(lst_x,lst_y,largura):
 
-    print('x,y',len(lst_x),len(lst_y))
+    # print('x,y',len(lst_x),len(lst_y))
     z = np.polyfit(lst_x, lst_y, 2)
     f = np.poly1d(z)
 
@@ -15,11 +15,11 @@ def find_polynomial(lst_x,lst_y,largura):
 
 def calculate_diff(lstSup,lstInf):
     result = [0 for x in range(0,len(lstSup))]
-    print('diff',len(lstSup),len(lstInf))
+    # print('diff',len(lstSup),len(lstInf))
     for i in range(0,len(lstSup)):
         result[i] = round(lstInf[i]-lstSup[i],0)
 
-    print ('ajuste: ',result)
+    # print ('ajuste: ',result)
     return result
 
 def shift_image(image,lst_x,diff):
@@ -32,7 +32,7 @@ def shift_image(image,lst_x,diff):
     return imageCopy
 
 def flat_image(image):
-    print image.shape
+    # print image.shape
     pilot_rpe = []
     list_x = []
 
