@@ -105,19 +105,25 @@ def gerarTrain(files,classes,fileName,strClasses,dir):
 
 
 def testarEnquadramento():
-    lstImagens = input.load_image('./Publication_Dataset/NORMAL1/TIFFs/8bitTIFFs/')
+    lstImagens = input.load_image('./Publication_Dataset/AMD6/TIFFs/8bitTIFFs/')
 
 
     for imagem in lstImagens:
-        frame_denoise = input.apply_filter(imagem,'gauss')
-        bdValue, new = flatten.flat_image(frame_denoise)
-        crop = cropping.croppy_mona(new,bdValue)
+        frame_gauss = input.apply_filter(imagem,'gauss')
+        frame_dif = input.apply_filter(imagem,'anisotropic')
+        bdValue, new,line = flatten.flat_image(frame_dif)
+        #crop = cropping.croppy_mona(new,bdValue)
+        col1 = frame_gauss[0:imagem.shape[0],0]
+        col2 = frame_dif[0:imagem.shape[0], 0]
+        print col1
+        print col2
+
         plt.figure()
         plt.subplot(121)
-        plt.imshow(new, 'gray')
+        plt.imshow(frame_dif, 'gray')
         plt.subplot(122)
-        plt.imshow(crop, 'gray')
-        #plt.plot(line, '.', lw=1)
+        plt.imshow(new, 'gray')
+        plt.plot(line, '.', lw=1)
         #plt.plot(line2, 'ro', lw=1)
         #plt.plot(poly, 'ro', lw=1)
         plt.show()
@@ -128,8 +134,8 @@ def testarEnquadramento():
 # geraLBPFeatures('NORMAL11')
 # geraLBPFeatures('DME4')
 
-gerarTrain(['./lbp_features/AMD1','./lbp_features/NORMAL11','./lbp_features/DME4'],['AMD','NORMAL','DME'],'AMDNORMALDME','AMD,NORMAL,DME','./lbp_features/')
-
+#gerarTrain(['./lbp_features/AMD1','./lbp_features/NORMAL11','./lbp_features/DME4'],['AMD','NORMAL','DME'],'AMDNORMALDME','AMD,NORMAL,DME','./lbp_features/')
+testarEnquadramento()
 # features_extraction.apply_hog(crop)
 # features_extraction.hog2(crop)
 # plt.figure()

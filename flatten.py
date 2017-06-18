@@ -41,7 +41,7 @@ def flat_image(image):
         column_list = column.tolist()
 
         for i in range(len(column_list)-2,0,-1):
-           if( column_list[i] > 100 and column_list[i] != 255 and  column_list[i+1] != 255  ):
+           if( column_list[i] > 100 and column_list[i] != 255  ):
                 list_x.append(c)
                 pilot_rpe.append(i)
                 break
@@ -57,5 +57,5 @@ def flat_image(image):
     diff = calculate_diff(poly, limit)
     image_flatten = shift_image(image, list_x, diff)
     #return pilot_rpe,limit,poly
-    return limit[0], image_flatten
+    return limit[0], image_flatten,pilot_rpe
 

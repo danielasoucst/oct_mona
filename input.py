@@ -1,6 +1,7 @@
 # coding: utf-8
 import os
 import cv2
+import medpy_ani_diff as diffusionFilter
 import heapq
 import numpy as np
 from matplotlib import pyplot as plt
@@ -18,13 +19,10 @@ def load_image(dir):
     return lstImages
 
 def apply_filter(image,metodo):
-    print(image.shape)
+    out = np.copy(image)
     if(metodo=='gauss'):
         out = cv2.GaussianBlur(image, (1, 3), 0)
-        return out
-    return None
-
-
-
-
+    if(metodo=='anisotropic'):
+        out = diffusionFilter.anisotropic_diffusion(image)
+    return out
 
