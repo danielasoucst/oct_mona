@@ -4,8 +4,6 @@ import cv2
 import medpy_ani_diff as diffusionFilter
 import heapq
 import numpy as np
-from matplotlib import pyplot as plt
-import flatten
 
 def load_image(dir):
     lstImages = []
