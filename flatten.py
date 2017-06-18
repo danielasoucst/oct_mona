@@ -47,6 +47,7 @@ def flat_image(image):
                 break
 
     '''definimos a linha horizontal q representará o limite inferior'''
+    limit = []
     if (len(pilot_rpe) > 0):
         ele = max(pilot_rpe)
         limit = [ele for x in xrange(0, len(pilot_rpe))]
@@ -56,5 +57,5 @@ def flat_image(image):
     diff = calculate_diff(poly, limit)
     image_flatten = shift_image(image, list_x, diff)
     #return pilot_rpe,limit,poly
-    return pilot_rpe, image_flatten
+    return limit[0], image_flatten
 

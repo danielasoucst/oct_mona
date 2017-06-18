@@ -1,8 +1,8 @@
 from skimage.feature import hog
 import numpy as np
 import cv2
-import gabor
-import glcm
+import gabor,glcm,lbp
+
 
 from skimage.viewer import ImageViewer
 from skimage import  data, color, exposure
@@ -98,3 +98,7 @@ def apply_glcm(imagem):
 
     estatisticas_glcm = glcm.glcm_features(imagem)
     return estatisticas_glcm
+
+def apply_lbp(imagem):
+    hist = lbp.convertToLBP(imagem)
+    return hist
