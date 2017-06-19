@@ -57,5 +57,5 @@ def flat_image(image):
     diff = calculate_diff(poly, limit)
     image_flatten = shift_image(image, list_x, diff)
     #return pilot_rpe,limit,poly
-    return limit[0], image_flatten,pilot_rpe
+    return limit[0], image_flatten
 

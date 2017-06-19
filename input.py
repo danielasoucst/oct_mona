@@ -10,7 +10,7 @@ def load_image(dir):
     for file in os.listdir(dir):
         if file.endswith(".tif"):
             volumeName = os.path.join(dir, file)
-            print (volumeName)
+           # print (volumeName)
             img = cv2.imread(volumeName,0)
             lstImages.append(img)
 
