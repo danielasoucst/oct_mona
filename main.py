@@ -135,9 +135,9 @@ def getClass(pasta):
     return None
 def geraBaseFeatures():
     volumes = []
-    volumes += ['AMD1','AMD2','AMD3','AMD4','AMD5','AMD6','AMD7','AMD8','AMD9','AMD10','AMD11','AMD12','AMD13','AMD14','AMD15']
-    volumes += ['DME1','DME2','DME3','DME4','DME5','DME6','DME7','DME8','DME9','DME10','DME11','DME12','DME13','DME14','DME15']
-    volumes += ['NORMAL1','NORMAL2','NORMAL3','NORMAL4','NORMAL5','NORMAL6','NORMAL7','NORMAL8','NORMAL9','NORMAL10','NORMAL11','NORMAL12','NORMAL13','NORMAL14','NORMAL15']
+    volumes += ['AMD1','AMD2','AMD3','AMD4','AMD5','AMD7','AMD8','AMD9','AMD10','AMD12','AMD13','AMD14']
+    volumes += ['DME1','DME2','DME3','DME4','DME6','DME7','DME8','DME9','DME12','DME13','DME14','DME15']
+    volumes += ['NORMAL1','NORMAL2','NORMAL3','NORMAL4','NORMAL5','NORMAL6','NORMAL7','NORMAL8','NORMAL9','NORMAL11','NORMAL13','NORMAL14']
 
     for vol in volumes:
         print('Extraindo gabor features for: ',vol)
@@ -149,6 +149,32 @@ def geraBaseFeatures():
         print('Extraindo lbp features for: ',vol)
         geraLBPFeatures(vol)
     print ("Fim...")
+
+def loadFeaturesTest():
+    volumes =['AMD6','AMD11','AMD15','DME5','DME10','DME11','NORMAL10','NORMAL12','NORMAL15']
+
+    for vol in volumes:
+        GGLfeatures = []
+        vectLabelsGGL = []
+        print('Carregando gabor+glcm+lbp features for: ', vol)
+        fileObject = open('./gabor_features/' + vol, 'rb')
+        features1 = pickle.load(fileObject)
+        fileObject = open('./glcm_features/' + vol, 'rb')
+        features2 = pickle.load(fileObject)
+        fileObject = open('./lbp_features/' + vol, 'rb')
+        features3 = pickle.load(fileObject)
+
+        for i in range(0, len(features1)):
+            features4 = features1[i]
+            features4 += features2[i]
+            features4 += features3[i]
+            GGLfeatures.append(features4)
+
+        vectLabelsGGL += [getClass(vol) for i in range(0, len(features1))]
+
+        print ('Gerando arff file for gabor+ glcm + lbp')
+        arffGenerator.createArffFile('./gabor_glcm_lbp_features/'+vol+'DATASET', GGLfeatures, vectLabelsGGL,
+                                     'AMD,DME,NORMAL', len(GGLfeatures[0]))
 
 def loadFeatures():
     volumes = []
@@ -294,7 +320,7 @@ def loadFeatures():
 
 # gerarTrain(['./lbp_features/AMD1','./lbp_features/NORMAL11','./lbp_features/DME4'],['AMD','NORMAL','DME'],'AMDNORMALDME','AMD,NORMAL,DME','./lbp_features/')
 #geraBaseFeatures()
-loadFeatures()
+loadFeaturesTest()
 
 # features_extraction.apply_hog(crop)
 # features_extraction.hog2(crop)
