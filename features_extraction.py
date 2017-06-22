@@ -65,8 +65,7 @@ def apply_sift(image):
     return des
 
 
-def apply_BOW(lstfeatures):
-    dictionarySize = 20
+def apply_BOW(lstfeatures,dictionarySize):
 
     BOW = cv2.BOWKMeansTrainer(dictionarySize)
 
